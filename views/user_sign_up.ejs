@@ -1,6 +1,7 @@
     <form action="/users/create-user" method="post">
-    <input type="text" name="name" placeholder="Enter your username">
-    <input type="email" name="email" placeholder="Enter your email">
-   <input type="password" name="password" placeholder="Enter your Password">
+    <input type="text" name="name" placeholder="Enter your username" required>
+    <input type="email" name="email" placeholder="Enter your email" required>
+   <input type="password" name="password" placeholder="Enter your Password" required>
+   <input type="password" name="confrim_password" placeholder="Confrim your Password" required>
    <input type="submit" value="Create account">
     </form>
