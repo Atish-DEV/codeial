@@ -1,2 +1,12 @@
    <link rel="stylesheet" href="/css/home.css">
    <h1>It is the <%=title%></h1>
+   <section>
+      <%if (locals.user){%>
+      <h4>Posts</h4>
+      <form action="/post/create-post" method="POST">
+         <textarea name="content" rows="5" cols="30" required>
+         </textarea>
+         <input type="submit" value="post">
+      </form>
+      <%}%>
+   </section>
