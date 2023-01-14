@@ -7,7 +7,7 @@ module.exports.createPost=function(req,res){
                 user:req.user._id
             },function(err,post){
                 if(err){
-                    return res.redirect('back');
+                    console.log(err);
                 }
                 if(post){
                     console.log('Post added');
@@ -15,4 +15,5 @@ module.exports.createPost=function(req,res){
             });
         }
     }
+    return res.redirect('back');
 }

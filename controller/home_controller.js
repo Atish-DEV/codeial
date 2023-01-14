@@ -1,8 +1,16 @@
 //controller of '/'
+const Post=require('../models/post');
 module.exports.home=function(req,res){
-    console.log(req.cookies);
-    res.cookie('id',25);
-    return res.render('home',{
-        title:'home page'
+    // Post.find({},function(err,post){
+    //     //console.log(post);
+    //     return res.render('home',{
+    //             title:"homepage",
+    //             posts:post
+    //         });
+    Post.find({}).populate('user').exec(function(req,post){
+        return res.render('home',{
+            title:"homepage",
+            posts:post
+    })
     });
-}
+    }
