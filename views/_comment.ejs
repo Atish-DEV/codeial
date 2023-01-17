@@ -1,0 +1,18 @@
+<div id="comment-container">
+    <%for(comment of post.comments){%>
+       
+       <p>
+          <%if (locals.user && locals.user.id==comment.user.id){%>
+             <small>
+             <a href="/comment/destroy/<%=comment.id%>">X</a>
+          </small>
+             <%}%>
+          <%=comment.content%></p>
+       <p><small><%=comment.user.name%></small></p>
+       <%}%>
+ </div>
+ <form action="/comment/create-comment" method="POST">
+    <input type="text" name="content">
+    <input type="hidden" name="post" value="<%=post._id%>">
+    <input type="submit" value="Add">
+ </form>

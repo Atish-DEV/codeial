@@ -11,38 +11,21 @@
       <div id="post-container">
          <ul>
             <%for(post of posts){%>
-               <li>
-                  <p>
-                     <%if (locals.user && locals.user.id==post.user.id){%>
-                     <small>
-                     <a href="/post/destroy/<%=post.id%>">X</a>
-                  </small>
-                     <%}%>
-               </p>
-                  <p><%=post.content%></p>
-                  <p><small><%=post.user.name%></small></p>
-                  <br/>
-                  <div id="comment-container">
-                     <%for(comment of post.comments){%>
-                        
-                        <p>
-                           <%if (locals.user && locals.user.id==comment.user.id){%>
-                              <small>
-                              <a href="/comment/destroy/<%=comment.id%>">X</a>
-                           </small>
-                              <%}%>
-                           <%=comment.content%></p>
-                        <p><small><%=comment.user.name%></small></p>
-                        <%}%>
-                  </div>
-                  <form action="/comment/create-comment" method="POST">
-                     <input type="text" name="content">
-                     <input type="hidden" name="post" value="<%=post._id%>">
-                     <input type="submit" value="Add">
-                  </form>
-               </li>
+              <%-include('_post')-%>
             <%}%>
          </ul>
       </div>
+      <%}%>
+   </section>
+   <section>
+      <h1>Friends</h1>
+      <%if (locals.user){%>
+      <ul>
+         <%for(user of all_users){%>
+            <p>
+               <a href="/users/profile/<%=user.id%>"><%=user.name%></a>
+            </p>
+         <%}%>
+      </ul>
       <%}%>
    </section>

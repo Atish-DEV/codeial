@@ -1,5 +1,6 @@
 //controller of '/'
 const Post=require('../models/post');
+const User=require('../models/user');
 module.exports.home=function(req,res){
     // Post.find({},function(err,post){
     //     //console.log(post);
@@ -15,9 +16,12 @@ module.exports.home=function(req,res){
         }
     })
     .populate('user').exec(function(req,post){
-        return res.render('home',{
+        User.find({},function(err,user){
+            return res.render('home',{
             title:"homepage",
-            posts:post
+            posts:post,
+            all_users:user
+        });
     })
     });
     }

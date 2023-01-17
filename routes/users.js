@@ -9,7 +9,7 @@ router.get('/',function(req,res){
     });
 });
 //setting routes & controller of '/users/profiles'
-router.get('/profile',passport.checkAuthentication,userController.profile);
+router.get('/profile/:id',passport.checkAuthentication,userController.profile);
 //setting routes & controller of '/users/sign-up'
 router.get('/sign-up',userController.signUp);
 //setting routes & controller of '/users/sign-in'
