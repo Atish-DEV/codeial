@@ -16,6 +16,7 @@ router.get('/sign-up',userController.signUp);
 router.get('/sign-in',userController.signIn);
 //setting routes & controller of '/users/create-user'
 router.post('/create-user',userController.createUser);
+router.post('/update/:id',passport.checkAuthentication,userController.update);
 router.post('/create-session',passport.authenticate(
     'local',
     {failureRedirect:'/users/sign-in'},
