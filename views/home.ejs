@@ -14,6 +14,18 @@
                <li>
                   <p><%=post.content%></p>
                   <p><small><%=post.user.name%></small></p>
+                  <br/>
+                  <div id="comment-container">
+                     <%for(comment of post.comments){%>
+                        <p><%=comment.content%></p>
+                        <p><small><%=comment.user.name%></small></p>
+                        <%}%>
+                  </div>
+                  <form action="/comment/create-comment" method="POST">
+                     <input type="text" name="content">
+                     <input type="hidden" name="post" value="<%=post._id%>">
+                     <input type="submit" value="Add">
+                  </form>
                </li>
             <%}%>
          </ul>

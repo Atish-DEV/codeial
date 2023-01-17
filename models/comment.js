@@ -2,18 +2,18 @@ const mongoose=require('mongoose');
 const currentSchema=new mongoose.Schema({
     content:{
         type:String,
-        required
+        required:true
     },
     user:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:'User'
+        ref:'User'          //refer to User Model
     },
     post:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:'Post'
+        ref:'Post'          //refer to Post Model
     }
 },{
     timestamps:true
 });
 const Comment=mongoose.model('Comment',currentSchema);
-module.exports=comment;
+module.exports=Comment;

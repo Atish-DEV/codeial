@@ -7,7 +7,14 @@ module.exports.home=function(req,res){
     //             title:"homepage",
     //             posts:post
     //         });
-    Post.find({}).populate('user').exec(function(req,post){
+    Post.find({})
+    .populate({
+        path:'comments',
+        populate:{
+            path:'user'
+        }
+    })
+    .populate('user').exec(function(req,post){
         return res.render('home',{
             title:"homepage",
             posts:post
