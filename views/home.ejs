@@ -24,7 +24,14 @@
                   <br/>
                   <div id="comment-container">
                      <%for(comment of post.comments){%>
-                        <p><%=comment.content%></p>
+                        
+                        <p>
+                           <%if (locals.user && locals.user.id==comment.user.id){%>
+                              <small>
+                              <a href="/comment/destroy/<%=comment.id%>">X</a>
+                           </small>
+                              <%}%>
+                           <%=comment.content%></p>
                         <p><small><%=comment.user.name%></small></p>
                         <%}%>
                   </div>
