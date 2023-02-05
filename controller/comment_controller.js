@@ -1,13 +1,10 @@
 const Comment=require('../models/comment');
 const Post=require('../models/post');
 
-module.exports.createComment=function(req,res){
-    Post.findById(req.body.post,function(err,post){
-        if(err){
-            console.log(err);
-        }
-        if (post){
-            Comment.create({
+module.exports.createComment=async function(req,res){
+    try{
+        let post =await Post.findById(req.body.post);
+    let comment=await Comment.create({
                 content: req.body.content,
                 post: req.body.post,
                 user: req.user._id
@@ -20,8 +17,10 @@ module.exports.createComment=function(req,res){
                 res.redirect('/');
             })
         }
-    })
-}
+        catch(err){
+            console.log(err);
+        }
+    }
 module.exports.destroy=function(req,res){
     Comment.findById(req.params.id,function(err,comment){
         if(comment.user==req.user.id){

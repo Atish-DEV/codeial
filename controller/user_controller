@@ -69,12 +69,14 @@ module.exports.createUser=function(req,res){
 }
 //controller of '/users/create-session'
 module.exports.createSession=function(req,res){
+    req.flash('success','Logged in successfully');
     return res.redirect('/');
+
  }
  module.exports.destroySession=function(req,res){
-    req.logout(function(err){
-        console.log(err);
-        return;
-    });
-    return res.redirect('/');
+    req.flash('success','Logged out successfully');
+    req.logout(function(err) {
+        if (err) { return next(err); }
+        res.redirect('/');
+      });
  }
