@@ -1,5 +1,6 @@
 const Post=require('../models/post');
 const Comment=require('../models/comment');
+const User = require('../models/user');
 module.exports.createPost=async function(req,res){
     try{
         if(req.isAuthenticated()){
@@ -8,9 +9,18 @@ module.exports.createPost=async function(req,res){
                     content:req.body.content,
                     user:req.user._id
                 });
+                let user=await User.findById(req.user._id);
                 if(post){
-                    req.flash('success','new post added');
-                        console.log('Post added');
+                    if(req.xhr){
+                        req.flash('success','new post added');
+                        return res.status(200).json({
+                            data:{
+                                post:post,
+                                user:user.name
+                            },
+                            message:'New post Ceated'
+                        });
+                    }
                     }
                 };
             }
@@ -28,7 +38,15 @@ module.exports.destryPost=async function(req,res){
         if(post.user==req.user.id){
             post.remove();
             Comment.deleteMany({post:req.params.id});
+            if(req.xhr){
             req.flash('success','Post and its comment deleted');
+            return res.status(200).json({
+                data:{
+                    post_id:req.params.id
+                },
+                message:'post deleted'
+            });
+        }
         }
             return res.redirect('back');
 }
