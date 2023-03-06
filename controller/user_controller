@@ -1,4 +1,6 @@
 const User=require('../models/user');
+const fs=require('fs');
+const path=require('path');
 //controller of '/users/profile'
 module.exports.profile=function(req,res){
     User.findById(req.params.id,function(err,user){
@@ -9,13 +11,48 @@ module.exports.profile=function(req,res){
         });
     });
 }
-module.exports.update=function(req,res){
+module.exports.update=async function(req,res){
+    // if(req.user.id==req.params.id){
+    // User.findByIdAndUpdate(req.params.id,req.body,function(err,user){
+    //     return res.redirect('back');
+    // });
+    // }else{
+    //     return res.status(401).send('unauthorised');
+    // }
     if(req.user.id==req.params.id){
-    User.findByIdAndUpdate(req.params.id,req.body,function(err,user){
-        return res.redirect('back');
-    });
+        try{
+            let user=await User.findByIdAndUpdate(req.params.id);
+            User.uploadedAvater(req,res,function(err){
+                if(err){
+                    console.log('error');
+                    return;
+                }
+                user.name=req.body.name;
+                user.email=req.body.email;
+                if(req.file){
+                    //check if user's avatar is alredy exist
+                    //if YES,delete the avatar and update
+                    //Create a new avatar
+                    if(user.avatar){
+                        let img_path=path.join(__dirname,'..',user.avatar);
+                        console.log(path.join(__dirname,'..',user.avatar));
+                        fs.unlinkSync(img_path);
+                    }
+                    user.avatar=User.avatar_path+'/'+req.file.filename;
+                }
+                user.save();
+                return res.redirect('back');
+            })
+
+        }catch(err){
+            console.log(err);
+            return res.redirect('back');
+        }
+
     }else{
-        return res.status(401).send('unauthorised');
+        req.flash('error','unauthorised');
+        return res.status(401).send('Unauthorised');
+
     }
 
 }

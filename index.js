@@ -15,6 +15,7 @@ const mWare=require('./config/middleware');
 app.use(expressLayout);
 //access to static pages for layout
 app.use(express.static('./assets'));
+app.use('/uploads',express.static(__dirname+'/uploads'));
 app.set('layout extractStyles',true);
 app.set('layout extractScripts',true);
 //use body parser

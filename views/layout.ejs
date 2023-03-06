@@ -17,24 +17,24 @@
     <%-include('_footer');%>
     <%- script%>
     <script>
-        // <%if(flash.success && flash.success.length>0){%>
-        //  new Noty({
-        //     text: "<%=flash.success%>",
-        //     theme:'relax',
-        //     type:"success",
-        //     timeout:1000,
-        //     layout:'bottomRight'
-        //      }).show();
-        // <%}%>
-        // <%if(flash.error && flash.error.length>0){%>
-        //  new Noty({
-        //     theme:'warning',
-        //     text: "<%=flash.error%>",
-        //     type:"error",
-        //     timeout:1000,
-        //     layout:'bottomRight'
-        //      }).show();
-        // <%}%>
+        <%if(flash.success && flash.success.length>0){%>
+         new Noty({
+            text: "<%=flash.success%>",
+            theme:'relax',
+            type:"success",
+            timeout:1000,
+            layout:'bottomRight'
+             }).show();
+        <%}%>
+        <%if(flash.error && flash.error.length>0){%>
+         new Noty({
+            theme:'warning',
+            text: "<%=flash.error%>",
+            type:"error",
+            timeout:1000,
+            layout:'bottomRight'
+             }).show();
+        <%}%>
     </script>
 </body>
 </html>
